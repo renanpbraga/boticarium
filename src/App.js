@@ -1,11 +1,12 @@
 import React from 'react';
 import Laboratorio from './components/Laboratorio';
+import BoticariumProvider from './context/BoticariumProvider';
 
 function App() {
   return (
-    <div>
+    <BoticariumProvider>
       <Laboratorio />
-    </div>
+    </BoticariumProvider>
   );
 }
 
