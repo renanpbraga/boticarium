@@ -5,10 +5,16 @@ function Jardim() {
   const[ervaColetada, setErvaColetada] = useState([])
   const {jardim} = useContext(BoticariumContext);
   
+  const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
+
   const coletarErva = (name) => {
-    setErvaColetada([...ervaColetada, name]);
+    const novaErva = {
+      nome: name,
+      qtd: Math.ceil(Math.random() * 5),
+    }
+    setErvaColetada([...ervaColetada, novaErva]);
+    localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas, novaErva]));
   }
-  
   console.log(ervaColetada);
 
   return (
@@ -17,10 +23,10 @@ function Jardim() {
         !jardim ? <p>Carregando...</p> : jardim.map((erva) => (
           <button
             type="button"
-            name={erva}
+            name={erva.nome}
             onClick={((e) => coletarErva(e.target.name))}
           >
-            {erva}
+            {erva.nome}
           </button>
         ))
         

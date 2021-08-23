@@ -42,10 +42,14 @@ function BoticariumProvider({children}) {
   };
 
   const jardim = [
-    "Camellia",
-    "Camomila",
-    "Coffea",
-    "Mamona",
+    { id: 1, nome: "Camellia" },
+    { id: 2, nome: "Camomila" },
+    { id: 3, nome: "Coffea" },
+    { id: 4, nome: "Mamona" },
+    { id: 5, nome: "Ora-pro-nóbis" },
+    { id: 6, nome: "Comigo-ninguém-pode" },
+    { id: 7, nome: "Capim-limão" },
+    { id: 8, nome: "Allamanda" },
   ];
 
   const context =  {
