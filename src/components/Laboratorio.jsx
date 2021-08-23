@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import BoticariumContext from '../context/BoticariumContext';
+import ArmarioDeErvas from './ArmarioDeErvas';
 import ArmarioDePocoes from './ArmarioDePocoes';
 import Jardim from './Jardim';
 
@@ -70,6 +71,7 @@ function Laboratorio() {
       <button type="button" onClick={preparaReceita}>Preparar receita</button>
       <ArmarioDePocoes />
       <Jardim />
+      <ArmarioDeErvas />
     </div>
   )
 }

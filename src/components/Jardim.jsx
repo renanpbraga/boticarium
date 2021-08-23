@@ -24,6 +24,7 @@ function Jardim() {
           <button
             type="button"
             name={erva.nome}
+            key={erva.id}
             onClick={((e) => coletarErva(e.target.name))}
           >
             {erva.nome}
