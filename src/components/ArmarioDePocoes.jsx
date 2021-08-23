@@ -1,27 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 function ArmarioDePocoes() {
-  const [itemsFromStorage, setItemsFromStorage] = useState([]);
-  
-  useEffect(() => {
-    const setItems = () => {
-      const getItemsFromStorage = JSON.parse(localStorage.getItem('pocoes'));
-      setItemsFromStorage(getItemsFromStorage);
-    };
-    setItems();
-  }, [itemsFromStorage]);
 
-  if(itemsFromStorage === null) {
-    return (
-      <p>Armário vazio</p>
-    );
-  };
+  const getArmarioDePocoes = JSON.parse(localStorage.getItem('pocoes')) || [];
+
+  const ordenaArmario = getArmarioDePocoes.sort(function (a, b) {
+    if (a.nome > b.nome) {
+      return 1;
+    }
+    if (a.nome < b.nome) {
+      return -1;
+    }
+    return 0;
+  });
 
   return (
     <div>
       <ul>Armário de Poções:
         {
-          itemsFromStorage.map((pocao) => (
+          getArmarioDePocoes.length < 1 ? <li>Vazio...</li> :
+          ordenaArmario.map((pocao) => (
             <li>{pocao.nome}</li>
           ))
         }

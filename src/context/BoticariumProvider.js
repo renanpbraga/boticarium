@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import BoticariumContext from './BoticariumContext';
 
 function BoticariumProvider({children}) {
-  const [ingrediente, setIngrediente] = useState('Camellia');
+  const [ingrediente, setIngrediente] = useState();
   const [quantidade, setQuantidade] = useState();
   const [caldeirao, setCaldeirao] = useState([]);
   const [erva, setErva] = useState([]);
-  
-  const grimorio = {
+  const receitasIniciais = {
     receitas: [
       {
         id: 1,
@@ -41,6 +40,51 @@ function BoticariumProvider({children}) {
     ],
   };
 
+  const grimorio = {
+    receitas: [
+      {
+        id: 1,
+        nome: "Poção de cura",
+        ingredientes: [{
+          ingrediente: "Camellia",
+          quantidade: 2,
+        }],
+      },
+      {
+        id: 2,
+        nome: "Veneno",
+        ingredientes: [{
+          ingrediente: "Mamona",
+          quantidade: 5,
+        }],
+      },
+      {
+        id: 3,
+        nome: "Calmante",
+        ingredientes: [{
+          ingrediente: "Camellia",
+          quantidade: 2,
+        },
+        {
+          ingrediente: "Camomila",
+          quantidade: 2,
+        }],
+      },
+      {
+        id: 4,
+        nome: "Veneno Forte",
+        ingredientes: [{
+          ingrediente: "Mamona",
+          quantidade: 5,
+        },
+        {
+          ingrediente: "Comigo-ninguém-pode",
+          quantidade: 2,
+        }],
+      },
+    ],
+  };
+
   const jardim = [
     { id: 1, nome: "Camellia" },
     { id: 2, nome: "Camomila" },
@@ -63,6 +107,7 @@ function BoticariumProvider({children}) {
     erva,
     setErva,
     jardim,
+    receitasIniciais,
   };
 
   return (

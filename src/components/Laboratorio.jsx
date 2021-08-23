@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import BoticariumContext from '../context/BoticariumContext';
 import ArmarioDeErvas from './ArmarioDeErvas';
 import ArmarioDePocoes from './ArmarioDePocoes';
+import Grimorio from './Grimorio';
 import Jardim from './Jardim';
 
 function Laboratorio() {
@@ -17,8 +18,12 @@ function Laboratorio() {
   } = useContext(BoticariumContext);
 
   const adicionarIngredientes = () => {
+    if(!ingrediente){
+      return
+    }
     //special thanks to Eduardo Santos(https://github.com/EduardoSantosF)
     const novoIngrediente = {
+      id:
       ingrediente,
       quantidade,
     };
@@ -35,7 +40,8 @@ function Laboratorio() {
   };
   
   const getAllDoneRecipes = JSON.parse(localStorage.getItem('pocoes')) || [];
-  
+  const receitaConhecida = JSON.parse(localStorage.getItem('receitasConhecidas'))||[];
+
   const preparaReceita = () => {
     const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao));
     global.alert(!receitaPreparada ? "A receita falhou" : `Você preparou: ${receitaPreparada.nome}`);
@@ -43,17 +49,24 @@ function Laboratorio() {
       localStorage.setItem('pocoes', JSON.stringify([...getAllDoneRecipes, receitaPreparada]));
     }
     setCaldeirao([]);
+    if(!receitaConhecida.find((receita) => receita.nome === receitaPreparada.nome)){
+      const receitaNova = JSON.stringify(receitaPreparada);
+      localStorage.setItem('receitasConhecidas', JSON.stringify(...receitaConhecida, receitaNova));
+    }
   };
-
+  
+  const getIngredientes = JSON.parse(localStorage.getItem('armarioDeErvas'))||[];
   return (
     <div>
       <label htmlFor="ingrediente">
         Ingrediente:
         <select id="ingrediente" onChange={(e) => setIngrediente(e.target.value)}>
-          <option>Camellia</option>
-          <option>Mamona</option>
-          <option>Camomila</option>
-          <option>Coffea</option>
+            <option></option>
+          {
+            getIngredientes.map((ingrediente) => (
+              <option key={ingrediente.nome}>{ingrediente.nome}</option>
+            ))
+          }
         </select>
       </label>
       <label htmlFor="quantidade">
@@ -72,6 +85,7 @@ function Laboratorio() {
       <ArmarioDePocoes />
       <Jardim />
       <ArmarioDeErvas />
+      <Grimorio />
     </div>
   )
 }

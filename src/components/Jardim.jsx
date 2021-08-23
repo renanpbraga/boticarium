@@ -3,11 +3,11 @@ import BoticariumContext from '../context/BoticariumContext';
 
 function Jardim() {
   const[ervaColetada, setErvaColetada] = useState([]);
-  const {jardim, setErva, erva} = useContext(BoticariumContext);
+  const {jardim, setErva} = useContext(BoticariumContext);
   
   useEffect(() => {
     setErva();
-  },[erva]);
+  });
   
   const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
 
@@ -25,10 +25,8 @@ function Jardim() {
     else {
       const alteraQtd = getAllErvas.find((erva) => erva.nome === novaErva.nome);
       alteraQtd.qtd = (alteraQtd.qtd + novaErva.qtd);
-      const ervaRepetida = getAllErvas.find((erva) => erva.nome === alteraQtd.nome);
-      console.log(ervaRepetida);
+      const ervaRepetida = getAllErvas.find((erva) => erva.nome === alteraQtd.nome)
       localStorage.removeItem('armarioDeErvas', JSON.stringify(ervaRepetida));
-      localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas]));
       setErvaColetada([...ervaColetada, alteraQtd]);
     }
   };
