@@ -11,8 +11,8 @@ function ArmarioDeErvas() {
       {
         getArmarioDeErvas.length < 1 ? <li>Vazio...</li> :
           getArmarioDeErvas.map((erva) => (
-            <li>
-              {erva.nome}
+            <li key={erva.id}>
+              {`${erva.qtd}x ${erva.nome}`}
             </li>
         ))
       }      

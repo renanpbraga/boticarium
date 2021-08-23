@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BoticariumContext from './BoticariumContext';
 
@@ -6,7 +6,11 @@ function BoticariumProvider({children}) {
   const [ingrediente, setIngrediente] = useState('Camellia');
   const [quantidade, setQuantidade] = useState();
   const [caldeirao, setCaldeirao] = useState([]);
-  const [ervas, setErvas] = useState([]);
+  const [erva, setErva] = useState([]);
+
+  useEffect(() => {
+    setErva();
+  },[]);
   
   const grimorio = {
     receitas: [
@@ -60,8 +64,8 @@ function BoticariumProvider({children}) {
     caldeirao,
     setCaldeirao,
     grimorio,
-    ervas,
-    setErvas,
+    erva,
+    setErva,
     jardim,
   };
 
