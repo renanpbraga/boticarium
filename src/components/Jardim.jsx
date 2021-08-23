@@ -33,11 +33,11 @@ function Jardim() {
   return (
     <div>
       {
-        !jardim ? <p>Carregando...</p> : jardim.map((erva) => (
+        !jardim ? <p>Carregando...</p> : jardim.map((erva, index) => (
           <button
             type="button"
             name={erva.nome}
-            key={erva.id}
+            key={index}
             onClick={((e) => coletarErva(e.target.name))}
           >
             {erva.nome}
