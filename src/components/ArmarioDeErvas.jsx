@@ -10,11 +10,11 @@ function ArmarioDeErvas() {
         Armário de Ervas:
       {
         getArmarioDeErvas.length < 1 ? <li>Vazio...</li> :
-          getArmarioDeErvas.map((erva) => (
-            <li key={erva.id}>
+          getArmarioDeErvas.map((erva, index) => (
+            <li key={index}>
               {`${erva.qtd}x ${erva.nome}`}
             </li>
-        ))
+        )).sort()
       }      
       </ul>
     </div>

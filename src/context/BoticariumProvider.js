@@ -7,10 +7,6 @@ function BoticariumProvider({children}) {
   const [quantidade, setQuantidade] = useState();
   const [caldeirao, setCaldeirao] = useState([]);
   const [erva, setErva] = useState([]);
-
-  useEffect(() => {
-    setErva();
-  },[]);
   
   const grimorio = {
     receitas: [
