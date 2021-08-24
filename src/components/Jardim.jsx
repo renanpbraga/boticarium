@@ -9,8 +9,7 @@ function Jardim() {
   //   setErva();
   // });
   
-  const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
-
+  
   const coletarErva = (name) => {
     const novaErva = {
       nome: name,
@@ -19,24 +18,28 @@ function Jardim() {
     setErva(novaErva);
     const encontraErva = getAllErvas.find((erva) => erva.nome === novaErva.nome);
     if(!encontraErva){
-    localStorage.setItem('armarioDeErvas', [...getAllErvas, novaErva]);
+      localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas, novaErva]));
     }
     else {
-      const ervaRepetida = getAllErvas.map((erva) => erva);
-      const indexErva = getAllErvas.indexOf(ervaRepetida);
-      const mapErvaColetada = getAllErvas.map((erva) => erva);
-      mapErvaColetada.splice(indexErva);
+      const ervaRepetida = getAllErvas.find((erva) => erva.nome === novaErva.nome);
+      const mapGetAllErvas = getAllErvas.map((erva) => erva);
+      let indexErva = mapGetAllErvas.indexOf(ervaRepetida);
+      mapGetAllErvas.splice(indexErva);
+      console.log(mapGetAllErvas);
       const ervaAlterada = {
-        nome: novaErva.nome,
-        qtd: novaErva.qtd + ervaRepetida.qtd,
-      };
-      localStorage.removeItem('armarioDeErvas');
-      mapErvaColetada.push(ervaAlterada);
-      const strMapErvaColetada = JSON.stringify(mapErvaColetada);
-      localStorage.setItem('armarioDeErvas', [strMapErvaColetada]);
-      // setErvaColetada(mapErvaColetada);
-    }
-  };
+          nome: novaErva.nome,
+          qtd: (novaErva.qtd + ervaRepetida.qtd),
+        };
+        console.log(ervaAlterada);
+      mapGetAllErvas.push(ervaAlterada);
+      console.log(mapGetAllErvas);
+        localStorage.removeItem('armarioDeErvas');
+        localStorage.setItem('armarioDeErvas', JSON.stringify(mapGetAllErvas));
+        // setErvaColetada(mapErvaColetada);
+      }
+    };
+    const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
+    // console.log(getAllErvas);
   // Math.ceil(Math.random()*4)
   const maxErvas = 4;
   const arrayErvas = [];
