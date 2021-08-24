@@ -9,8 +9,7 @@ function Jardim() {
   //   setErva();
   // });
   
-  const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
-
+  
   const coletarErva = (name) => {
     const novaErva = {
       nome: name,
@@ -20,26 +19,23 @@ function Jardim() {
     const encontraErva = getAllErvas.find((erva) => erva.nome === novaErva.nome);
     if(!encontraErva){
       localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas, novaErva]));
-      setErvaColetada([...ervaColetada, novaErva]);
     }
     else {
-      const ervaRepetida = ervaColetada.find((erva) => erva.nome === novaErva.nome);
-      const indexErva = ervaColetada.indexOf(ervaRepetida);
-      const mapErvaColetada = ervaColetada.map((erva) => erva);
-      mapErvaColetada.splice(indexErva);
+      const ervaRepetida = getAllErvas.find((erva) => erva.nome === novaErva.nome);
+      const mapGetAllErvas = getAllErvas.map((erva) => erva);
+      let indexErva = mapGetAllErvas.indexOf(ervaRepetida);
+      mapGetAllErvas.splice(indexErva, 1);
       const ervaAlterada = {
         nome: novaErva.nome,
-        qtd: novaErva.qtd + ervaRepetida.qtd,
+        qtd: (novaErva.qtd + ervaRepetida.qtd),
       };
+      mapGetAllErvas.push(ervaAlterada);
       localStorage.removeItem('armarioDeErvas');
-      mapErvaColetada.push(ervaAlterada);
-      console.log(mapErvaColetada, 'MAP ERVA COLETADA');
-      const strMapErvaColetada = JSON.stringify(mapErvaColetada);
-      localStorage.setItem('armarioDeErvas', [strMapErvaColetada]);
-      // setErvaColetada(mapErvaColetada);
+      localStorage.setItem('armarioDeErvas', JSON.stringify([...mapGetAllErvas]));
     }
   };
-  // Math.ceil(Math.random()*4)
+  const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
+  
   const maxErvas = 4;
   const arrayErvas = [];
   for(let i = 0; i < jardim.length; i += 1){
@@ -59,7 +55,6 @@ function Jardim() {
             {erva.nome}
           </button>
         ))
-        
       }
     </div>
   )

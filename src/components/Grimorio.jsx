@@ -15,10 +15,10 @@ function Grimorio() {
       {
         receitasIniciais.receitas.map((receita) => (
         (
-          <ul>
+          <ul key={receita.nome}>
             {receita.nome}
-            <li>
-              { receita.receita}
+            <li key={receita.id}>
+              {receita.receita}
             </li>
           </ul>
         )))
