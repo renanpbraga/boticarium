@@ -23,19 +23,17 @@ function Jardim() {
     else {
       const ervaRepetida = getAllErvas.find((erva) => erva.nome === novaErva.nome);
       const mapGetAllErvas = getAllErvas.map((erva) => erva);
-      let indexErva = mapGetAllErvas.indexOf(ervaRepetida);
+      const indexErva = mapGetAllErvas.indexOf(ervaRepetida);
       mapGetAllErvas.splice(indexErva);
-      console.log(mapGetAllErvas);
       const ervaAlterada = {
           nome: novaErva.nome,
           qtd: (novaErva.qtd + ervaRepetida.qtd),
         };
-        console.log(ervaAlterada);
-      mapGetAllErvas.push(ervaAlterada);
-      console.log(mapGetAllErvas);
-        localStorage.removeItem('armarioDeErvas');
-        localStorage.setItem('armarioDeErvas', JSON.stringify(mapGetAllErvas));
-        // setErvaColetada(mapErvaColetada);
+      localStorage.removeItem('armarioDeErvas');
+      console.log(mapGetAllErvas)
+      // o problema está aqui
+      localStorage.setItem('armarioDeErvas', JSON.stringify([...mapGetAllErvas, ervaAlterada]));
+      // o problema está aqui
       }
     };
     const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
