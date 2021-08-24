@@ -4,6 +4,7 @@ import ArmarioDeErvas from './ArmarioDeErvas';
 import ArmarioDePocoes from './ArmarioDePocoes';
 import Grimorio from './Grimorio';
 import Jardim from './Jardim';
+import "../App.css"
 
 function Laboratorio() {
   

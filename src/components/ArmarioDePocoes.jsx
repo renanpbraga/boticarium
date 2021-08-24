@@ -16,7 +16,8 @@ function ArmarioDePocoes() {
 
   return (
     <div>
-      <ul>Armário de Poções:
+      <ul className="texto-negrito">
+        Armário de Poções:
         {
           getArmarioDePocoes.length < 1 ? <li>Vazio...</li> :
           ordenaArmario.map((pocao, index) => (

@@ -11,7 +11,18 @@ function Grimorio() {
 
   return (
     <div>
-      
+      <ul>Grimório de receitas:</ul>
+      {
+        receitasIniciais.receitas.map((receita) => (
+        (
+          <ul>
+            {receita.nome}
+            <li>
+              { receita.receita}
+            </li>
+          </ul>
+        )))
+      }
     </div>
   )
 }
