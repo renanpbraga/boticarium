@@ -7,6 +7,7 @@ function BoticariumProvider({children}) {
   const [quantidade, setQuantidade] = useState();
   const [caldeirao, setCaldeirao] = useState([]);
   const [erva, setErva] = useState([]);
+  
   const receitasIniciais = {
     receitas: [
       {
@@ -16,6 +17,7 @@ function BoticariumProvider({children}) {
           ingrediente: "Camellia",
           quantidade: 2,
         }],
+        receita:"2 unidades de Camellia."
       },
       {
         id: 2,
@@ -24,6 +26,7 @@ function BoticariumProvider({children}) {
           ingrediente: "Mamona",
           quantidade: 5,
         }],
+        receita:"5 unidades de Mamona"
       },
       {
         id: 3,
@@ -36,6 +39,7 @@ function BoticariumProvider({children}) {
           ingrediente: "Camomila",
           quantidade: 2,
         }],
+        receita:"2 unidades de Camellia; 2 unidades de Camomila"
       },
     ],
   };
@@ -49,6 +53,7 @@ function BoticariumProvider({children}) {
           ingrediente: "Camellia",
           quantidade: 2,
         }],
+        receita:"2 unidades de Camellia."
       },
       {
         id: 2,
@@ -57,6 +62,7 @@ function BoticariumProvider({children}) {
           ingrediente: "Mamona",
           quantidade: 5,
         }],
+        receita:"5 unidades de Mamona."
       },
       {
         id: 3,
@@ -69,6 +75,7 @@ function BoticariumProvider({children}) {
           ingrediente: "Camomila",
           quantidade: 2,
         }],
+        receita:"2 unidades de Camellia; 2 unidades de Camomila."
       },
       {
         id: 4,
@@ -81,6 +88,7 @@ function BoticariumProvider({children}) {
           ingrediente: "Comigo-ninguém-pode",
           quantidade: 2,
         }],
+        receita:"5 unidades de Mamona; 2 unidades de Comigo-ninguém-pode."
       },
     ],
   };

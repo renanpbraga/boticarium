@@ -5,9 +5,9 @@ function Jardim() {
   const[ervaColetada, setErvaColetada] = useState([]);
   const {jardim, setErva} = useContext(BoticariumContext);
   
-  useEffect(() => {
-    setErva();
-  });
+  // useEffect(() => {
+  //   setErva();
+  // });
   
   const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
 
@@ -23,11 +23,20 @@ function Jardim() {
       setErvaColetada([...ervaColetada, novaErva]);
     }
     else {
-      const alteraQtd = getAllErvas.find((erva) => erva.nome === novaErva.nome);
-      alteraQtd.qtd = (alteraQtd.qtd + novaErva.qtd);
-      const ervaRepetida = getAllErvas.find((erva) => erva.nome === alteraQtd.nome)
-      localStorage.removeItem('armarioDeErvas', JSON.stringify(ervaRepetida));
-      setErvaColetada([...ervaColetada, alteraQtd]);
+      const ervaRepetida = ervaColetada.find((erva) => erva.nome === novaErva.nome);
+      const indexErva = ervaColetada.indexOf(ervaRepetida);
+      const mapErvaColetada = ervaColetada.map((erva) => erva);
+      mapErvaColetada.splice(indexErva);
+      const ervaAlterada = {
+        nome: novaErva.nome,
+        qtd: novaErva.qtd + ervaRepetida.qtd,
+      };
+      localStorage.removeItem('armarioDeErvas');
+      mapErvaColetada.push(ervaAlterada);
+      console.log(mapErvaColetada, 'MAP ERVA COLETADA');
+      const strMapErvaColetada = JSON.stringify(mapErvaColetada);
+      localStorage.setItem('armarioDeErvas', [strMapErvaColetada]);
+      // setErvaColetada(mapErvaColetada);
     }
   };
   // Math.ceil(Math.random()*4)
@@ -44,7 +53,7 @@ function Jardim() {
           <button
             type="button"
             name={erva.nome}
-            key={index}
+            key={`${erva}-${index}`}
             onClick={((e) => coletarErva(e.target.name))}
           >
             {erva.nome}

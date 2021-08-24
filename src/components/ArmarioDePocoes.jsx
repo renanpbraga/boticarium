@@ -19,8 +19,8 @@ function ArmarioDePocoes() {
       <ul>Armário de Poções:
         {
           getArmarioDePocoes.length < 1 ? <li>Vazio...</li> :
-          ordenaArmario.map((pocao) => (
-            <li>{pocao.nome}</li>
+          ordenaArmario.map((pocao, index) => (
+            <li key={index}>{pocao.nome}</li>
           ))
         }
       </ul>

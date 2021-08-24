@@ -23,10 +23,10 @@ function Laboratorio() {
     }
     //special thanks to Eduardo Santos(https://github.com/EduardoSantosF)
     const novoIngrediente = {
-      id:
       ingrediente,
       quantidade,
     };
+    console.log(novoIngrediente);
     const foundIngred = caldeirao.find((ingred) => ingred.ingrediente === ingrediente) 
     if(!foundIngred  && quantidade > 0){
       setCaldeirao([...caldeirao, novoIngrediente]);
@@ -40,8 +40,9 @@ function Laboratorio() {
   };
   
   const getAllDoneRecipes = JSON.parse(localStorage.getItem('pocoes')) || [];
-  const receitaConhecida = JSON.parse(localStorage.getItem('receitasConhecidas'))||[];
-
+  const receitaConhecida = JSON.parse(localStorage.getItem('receitasConhecidas')) || [];
+  const getIngredientes = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
+  
   const preparaReceita = () => {
     const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao));
     global.alert(!receitaPreparada ? "A receita falhou" : `Você preparou: ${receitaPreparada.nome}`);
@@ -53,15 +54,15 @@ function Laboratorio() {
       const receitaNova = JSON.stringify(receitaPreparada);
       localStorage.setItem('receitasConhecidas', JSON.stringify(...receitaConhecida, receitaNova));
     }
+
   };
-  
-  const getIngredientes = JSON.parse(localStorage.getItem('armarioDeErvas'))||[];
+
   return (
     <div>
       <label htmlFor="ingrediente">
         Ingrediente:
         <select id="ingrediente" onChange={(e) => setIngrediente(e.target.value)}>
-            <option></option>
+            <option />
           {
             getIngredientes.map((ingrediente) => (
               <option key={ingrediente.nome}>{ingrediente.nome}</option>
