@@ -19,13 +19,12 @@ function Jardim() {
     setErva(novaErva);
     const encontraErva = getAllErvas.find((erva) => erva.nome === novaErva.nome);
     if(!encontraErva){
-      localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas, novaErva]));
-      setErvaColetada([...ervaColetada, novaErva]);
+    localStorage.setItem('armarioDeErvas', [...getAllErvas, novaErva]);
     }
     else {
-      const ervaRepetida = ervaColetada.find((erva) => erva.nome === novaErva.nome);
-      const indexErva = ervaColetada.indexOf(ervaRepetida);
-      const mapErvaColetada = ervaColetada.map((erva) => erva);
+      const ervaRepetida = getAllErvas.map((erva) => erva);
+      const indexErva = getAllErvas.indexOf(ervaRepetida);
+      const mapErvaColetada = getAllErvas.map((erva) => erva);
       mapErvaColetada.splice(indexErva);
       const ervaAlterada = {
         nome: novaErva.nome,
@@ -33,7 +32,6 @@ function Jardim() {
       };
       localStorage.removeItem('armarioDeErvas');
       mapErvaColetada.push(ervaAlterada);
-      console.log(mapErvaColetada, 'MAP ERVA COLETADA');
       const strMapErvaColetada = JSON.stringify(mapErvaColetada);
       localStorage.setItem('armarioDeErvas', [strMapErvaColetada]);
       // setErvaColetada(mapErvaColetada);
@@ -59,7 +57,6 @@ function Jardim() {
             {erva.nome}
           </button>
         ))
-        
       }
     </div>
   )

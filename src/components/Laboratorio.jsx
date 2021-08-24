@@ -36,7 +36,7 @@ function Laboratorio() {
       const newCaldeirao = caldeirao.map(
         ingred => ingred.ingrediente === ingrediente ? {...ingred, quantidade} : ingred
       );
-      setCaldeirao(newCaldeirao); 
+      setCaldeirao(newCaldeirao);
     };
   };
   
