@@ -2,13 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import BoticariumContext from '../context/BoticariumContext';
 
 function Jardim() {
-  const[ervaColetada, setErvaColetada] = useState([]);
-  const {jardim, setErva} = useContext(BoticariumContext);
-  
-  // useEffect(() => {
-  //   setErva();
-  // });
-  
+  const {jardim, setErva} = useContext(BoticariumContext);  
   
   const coletarErva = (name) => {
     const novaErva = {
@@ -22,20 +16,16 @@ function Jardim() {
     }
     else {
       const ervaRepetida = getAllErvas.find((erva) => erva.nome === novaErva.nome);
-      const mapGetAllErvas = getAllErvas.map((erva) => erva);
-      let indexErva = mapGetAllErvas.indexOf(ervaRepetida);
-      mapGetAllErvas.splice(indexErva, 1);
-      const ervaAlterada = {
-        nome: novaErva.nome,
-        qtd: (novaErva.qtd + ervaRepetida.qtd),
-      };
-      mapGetAllErvas.push(ervaAlterada);
-      localStorage.removeItem('armarioDeErvas');
-      localStorage.setItem('armarioDeErvas', JSON.stringify([...mapGetAllErvas]));
+      ervaRepetida.qtd += novaErva.qtd;
+      localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas]));
+      // const ervaRepetida = getAllErvas.find((erva) => erva.nome === novaErva.nome);
+      // let indexErva = getAllErvas.indexOf(ervaRepetida);
+      // getAllErvas[indexErva].qtd = (ervaRepetida.qtd + novaErva.qtd);
+      // localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas]));
     }
   };
   const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
-  
+
   const maxErvas = 4;
   const arrayErvas = [];
   for(let i = 0; i < jardim.length; i += 1){

@@ -14,8 +14,8 @@ function BoticariumProvider({children}) {
         id: 1,
         nome: "Poção de cura",
         ingredientes: [{
-          ingrediente: "Camellia",
-          quantidade: 2,
+          nome: "Camellia",
+          qtd: 2,
         }],
         receita:"2 unidades de Camellia."
       },
@@ -23,8 +23,8 @@ function BoticariumProvider({children}) {
         id: 2,
         nome: "Veneno",
         ingredientes: [{
-          ingrediente: "Mamona",
-          quantidade: 5,
+          nome: "Mamona",
+          qtd: 5,
         }],
         receita:"5 unidades de Mamona"
       },
@@ -32,12 +32,12 @@ function BoticariumProvider({children}) {
         id: 3,
         nome: "Calmante",
         ingredientes: [{
-          ingrediente: "Camellia",
-          quantidade: 2,
+          nome: "Camellia",
+          qtd: 2,
         },
         {
-          ingrediente: "Camomila",
-          quantidade: 2,
+          nome: "Camomila",
+          qtd: 2,
         }],
         receita:"2 unidades de Camellia; 2 unidades de Camomila"
       },
@@ -50,8 +50,8 @@ function BoticariumProvider({children}) {
         id: 1,
         nome: "Poção de cura",
         ingredientes: [{
-          ingrediente: "Camellia",
-          quantidade: 2,
+          nome: "Camellia",
+          qtd: 2,
         }],
         receita:"2 unidades de Camellia."
       },
@@ -59,8 +59,8 @@ function BoticariumProvider({children}) {
         id: 2,
         nome: "Veneno",
         ingredientes: [{
-          ingrediente: "Mamona",
-          quantidade: 5,
+          nome: "Mamona",
+          qtd: 5,
         }],
         receita:"5 unidades de Mamona."
       },
@@ -68,12 +68,12 @@ function BoticariumProvider({children}) {
         id: 3,
         nome: "Calmante",
         ingredientes: [{
-          ingrediente: "Camellia",
-          quantidade: 2,
+          nome: "Camellia",
+          qtd: 2,
         },
         {
-          ingrediente: "Camomila",
-          quantidade: 2,
+          nome: "Camomila",
+          qtd: 2,
         }],
         receita:"2 unidades de Camellia; 2 unidades de Camomila."
       },
@@ -81,12 +81,12 @@ function BoticariumProvider({children}) {
         id: 4,
         nome: "Veneno Forte",
         ingredientes: [{
-          ingrediente: "Mamona",
-          quantidade: 5,
+          nome: "Mamona",
+          qtd: 5,
         },
         {
-          ingrediente: "Comigo-ninguém-pode",
-          quantidade: 2,
+          nome: "Comigo-ninguém-pode",
+          qtd: 2,
         }],
         receita:"5 unidades de Mamona; 2 unidades de Comigo-ninguém-pode."
       },
