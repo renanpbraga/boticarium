@@ -44,32 +44,59 @@ function Laboratorio() {
   const getIngredientes = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
   const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
   
-  const consomeErvas = (receitaPreparada) => {
-    const encontraIngreds = getAllErvas.map((ingred) => {
-      const ingredUsado = receitaPreparada.ingredientes.find((ing) => ing.nome === ingred.nome)
-      if(ingredUsado){
-        ingred.qtd -= ingredUsado.qtd;
-      }
-      return ingred;
-    });
-    const ingredRestantes = encontraIngreds.filter((ingred) => ingred.qtd > 0)
-    localStorage.setItem('armarioDeErvas', JSON.stringify(ingredRestantes));
-    };
+  const consomeIngrediente = () => {
+    const verificaIngred = getAllErvas.map((ingred) => {
 
-  const preparaReceita = () => {
-    const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao));
-    if(receitaPreparada.ingredientes.ingrediente)
-    global.alert(!receitaPreparada ? "A receita falhou" : `Você preparou: ${receitaPreparada.nome}`);
-    if(receitaPreparada){
-      localStorage.setItem('pocoes', JSON.stringify([...getAllDoneRecipes, receitaPreparada]));
-      consomeErvas(receitaPreparada);
-    }
-    setCaldeirao([]);
-    if(!receitaConhecida.find((receita) => receita.nome === receitaPreparada.nome)){
-      const receitaNova = JSON.stringify(receitaPreparada);
-      localStorage.setItem('receitasConhecidas', JSON.stringify(...receitaConhecida, receitaNova));
-    }
+    })
+  }
+
+  const preparaPocao = () => {
+    const verificaIngred = getAllErvas.map((ingred) => {
+      const verificaCaldeirao = caldeirao.find((ing) => ing.qtd <= ingred.qtd)
+      if(!verificaCaldeirao){
+        ingred.qtd -= verificaCaldeirao.qtd
+        global.alert("A receita falhou.");
+      } else {
+        global.alert("A receita pode er feita.")
+        ingred.qtd -= verificaCaldeirao.qtd
+        const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao));
+        console.log(receitaPreparada); //está dando undefined 
+        // if(!receitaPreparada){
+          //   global.alert("A receita falhou");
+          // } else {
+          //   global.alert(`Você preparou ${receitaPreparada.nome}`);
+          // };
+        };
+    });
   };
+
+
+  // const consomeErvas = (receitaPreparada) => {
+  //   const encontraIngreds = getAllErvas.map((ingred) => {
+  //     const ingredUsado = receitaPreparada.ingredientes.find((ing) => ing.nome === ingred.nome)
+  //     if(ingredUsado){
+  //       ingred.qtd -= ingredUsado.qtd;
+  //     }
+  //     return ingred;
+  //   });
+  //   const ingredRestantes = encontraIngreds.filter((ingred) => ingred.qtd > 0)
+  //   localStorage.setItem('armarioDeErvas', JSON.stringify(ingredRestantes));
+  //   };
+
+  // const preparaReceita = () => {
+  //   const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao));
+  //   if(receitaPreparada.ingredientes.ingrediente)
+  //   global.alert(!receitaPreparada ? "A receita falhou" : `Você preparou: ${receitaPreparada.nome}`);
+  //   if(receitaPreparada){
+  //     localStorage.setItem('pocoes', JSON.stringify([...getAllDoneRecipes, receitaPreparada]));
+  //     consomeErvas(receitaPreparada);
+  //   }
+  //   setCaldeirao([]);
+  //   if(!receitaConhecida.find((receita) => receita.nome === receitaPreparada.nome)){
+  //     const receitaNova = JSON.stringify(receitaPreparada);
+  //     localStorage.setItem('receitasConhecidas', JSON.stringify(...receitaConhecida, receitaNova));
+  //   }
+  // };
 
   return (
     <div>
@@ -96,7 +123,7 @@ function Laboratorio() {
           </li>
         ))}
       </ul>
-      <button type="button" onClick={preparaReceita}>Preparar receita</button>
+      <button type="button" onClick={preparaPocao}>Preparar receita</button>
       <ArmarioDePocoes />
       <Jardim />
       <ArmarioDeErvas />
