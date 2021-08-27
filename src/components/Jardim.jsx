@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import BoticariumContext from '../context/BoticariumContext';
 
 function Jardim() {
@@ -18,10 +18,6 @@ function Jardim() {
       const ervaRepetida = getAllErvas.find((erva) => erva.nome === novaErva.nome);
       ervaRepetida.qtd += novaErva.qtd;
       localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas]));
-      // const ervaRepetida = getAllErvas.find((erva) => erva.nome === novaErva.nome);
-      // let indexErva = getAllErvas.indexOf(ervaRepetida);
-      // getAllErvas[indexErva].qtd = (ervaRepetida.qtd + novaErva.qtd);
-      // localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas]));
     }
   };
   const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];

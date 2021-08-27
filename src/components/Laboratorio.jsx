@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import BoticariumContext from '../context/BoticariumContext';
 import ArmarioDeErvas from './ArmarioDeErvas';
 import ArmarioDePocoes from './ArmarioDePocoes';
@@ -27,49 +27,64 @@ function Laboratorio() {
       nome: ingrediente,
       qtd: quantidade,
     };
-    const foundIngred = caldeirao.find((ingred) => ingred.nome === ingrediente) 
-    if(!foundIngred  && quantidade > 0){
-      setCaldeirao([...caldeirao, novoIngrediente]);
-    } 
-    else {
-      const newCaldeirao = caldeirao.map(
-        ingred => ingred.nome === ingrediente ? {...ingred, qtd: quantidade} : ingred
-      );
-      setCaldeirao(newCaldeirao);
-    };
+    if(getAllErvas.find((erva) => erva.nome === ingrediente && erva.qtd < quantidade)){
+      global.alert(`Você não possui ${ingrediente} suficiente`)
+    } else{
+      const foundIngred = caldeirao.find((ingred) => ingred.nome === ingrediente) 
+      if(!foundIngred  && quantidade > 0){
+        setCaldeirao([...caldeirao, novoIngrediente]);
+      } 
+      else {
+        const newCaldeirao = caldeirao.map(
+          ingred => ingred.nome === ingrediente ? {...ingred, qtd: quantidade} : ingred
+        );
+        setCaldeirao(newCaldeirao);
+      };
+    }
   };
   
   const getAllDoneRecipes = JSON.parse(localStorage.getItem('pocoes')) || [];
-  const receitaConhecida = JSON.parse(localStorage.getItem('receitasConhecidas')) || [];
+  // const receitaConhecida = JSON.parse(localStorage.getItem('receitasConhecidas')) || [];
   const getIngredientes = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
   const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
-  
-  const consomeErvas = (receitaPreparada) => {
-    const encontraIngreds = getAllErvas.map((ingred) => {
-      const ingredUsado = receitaPreparada.ingredientes.find((ing) => ing.nome === ingred.nome)
-      if(ingredUsado){
-        ingred.qtd -= ingredUsado.qtd;
-      }
-      return ingred;
-    });
-    const ingredRestantes = encontraIngreds.filter((ingred) => ingred.qtd > 0)
-    localStorage.setItem('armarioDeErvas', JSON.stringify(ingredRestantes));
-    };
 
-  const preparaReceita = () => {
-    const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao));
-    if(receitaPreparada.ingredientes.ingrediente)
-    global.alert(!receitaPreparada ? "A receita falhou" : `Você preparou: ${receitaPreparada.nome}`);
-    if(receitaPreparada){
-      localStorage.setItem('pocoes', JSON.stringify([...getAllDoneRecipes, receitaPreparada]));
-      consomeErvas(receitaPreparada);
+  const preparaPocao = () => {
+    getAllErvas.find((ingred) => {
+      const verificaCaldeirao = caldeirao.find((ing) => ing.nome === ingred.nome)
+      if(verificaCaldeirao){
+        //MUDAR ISSO AQUI - COMPARAR SEM USAR STRINGIFY
+        const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao));
+        if(!receitaPreparada){
+          global.alert('A Poção falhou');
+          ingred.qtd -= verificaCaldeirao.qtd
+          localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas]))
+          setCaldeirao([]);
+          return ingred
+        }
+        const encontraIngreds = getAllErvas.map((ingred) => {
+          const ingredUsado = receitaPreparada.ingredientes.find((ing) => ing.nome === ingred.nome)
+          if(ingredUsado){
+            ingred.qtd -= ingredUsado.qtd;
+          }
+          return ingred;
+        });
+        const ingredRestantes = encontraIngreds.filter((ingred) => ingred.qtd > 0)
+        localStorage.setItem('armarioDeErvas', JSON.stringify(ingredRestantes));
+        getAllErvas.find((erva) => erva.nome === receitaPreparada.ingredientes.nome)
+        localStorage.setItem('pocoes', JSON.stringify([...getAllDoneRecipes, receitaPreparada]));
+        setCaldeirao([]);
+        }});
+  }
+
+  const ordenaArmario = getIngredientes.sort(function (a, b) {
+    if (a.nome > b.nome) {
+      return 1;
     }
-    setCaldeirao([]);
-    if(!receitaConhecida.find((receita) => receita.nome === receitaPreparada.nome)){
-      const receitaNova = JSON.stringify(receitaPreparada);
-      localStorage.setItem('receitasConhecidas', JSON.stringify(...receitaConhecida, receitaNova));
+    if (a.nome < b.nome) {
+      return -1;
     }
-  };
+    return 0;
+  });
 
   return (
     <div>
@@ -78,9 +93,9 @@ function Laboratorio() {
         <select id="ingrediente" onChange={(e) => setIngrediente(e.target.value)}>
             <option />
           {
-            getIngredientes.map((ingrediente) => (
+            ordenaArmario.map((ingrediente) => (
               <option key={ingrediente.nome}>{ingrediente.nome}</option>
-            ))
+            )).sort()
           }
         </select>
       </label>
@@ -96,7 +111,7 @@ function Laboratorio() {
           </li>
         ))}
       </ul>
-      <button type="button" onClick={preparaReceita}>Preparar receita</button>
+      <button type="button" onClick={preparaPocao}>Preparar receita</button>
       <ArmarioDePocoes />
       <Jardim />
       <ArmarioDeErvas />
