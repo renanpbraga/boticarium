@@ -116,7 +116,7 @@ function BoticariumProvider({children}) {
         id: 7,
         nome: "Chá de Acalentum (fraco)",
         ingredientes: [{
-          nome: "Acalentum",
+          nome: "Acallentum",
           qtd: 2,
         }],
         receita:"2 unidades de Acalentum"
