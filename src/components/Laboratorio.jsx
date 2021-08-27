@@ -43,10 +43,8 @@ function Laboratorio() {
     }
   };
   
-  
-
   const getAllDoneRecipes = JSON.parse(localStorage.getItem('pocoes')) || [];
-  const receitaConhecida = JSON.parse(localStorage.getItem('receitasConhecidas')) || [];
+  // const receitaConhecida = JSON.parse(localStorage.getItem('receitasConhecidas')) || [];
   const getIngredientes = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
   const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
 
@@ -77,58 +75,6 @@ function Laboratorio() {
         setCaldeirao([]);
         }});
   }
-
-  // const preparaPocao = () => {
-  //   getAllErvas.find((ingred) => {
-  //     const verificaCaldeirao = caldeirao.find((ing) => ing.nome === ingred.nome)
-  //     console.log(ingred);
-  //     if(verificaCaldeirao){
-  //       const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao))
-  //       if(!receitaPreparada){
-  //         global.alert('A Poção falhou');          
-  //       } else {
-  //         const encontraIngreds = getAllErvas.map((ingred) => {
-  //           const ingredUsado = receitaPreparada.ingredientes.find((ing) => ing.nome === ingred.nome)
-  //           if(ingredUsado){
-  //             ingred.qtd -= ingredUsado.qtd;
-  //           }
-  //           return ingred;
-  //         });
-  //         const ingredRestantes = encontraIngreds.filter((ingred) => ingred.qtd > 0)
-  //         localStorage.setItem('armarioDeErvas', JSON.stringify(ingredRestantes));
-  //         getAllErvas.find((erva) => erva.nome === receitaPreparada.ingredientes.nome)
-  //         localStorage.setItem('pocoes', JSON.stringify([...getAllDoneRecipes, receitaPreparada]));
-  //       }
-  //     }});
-  // };
-
-
-  // const consomeErvas = (receitaPreparada) => {
-    // const encontraIngreds = getAllErvas.map((ingred) => {
-    //   const ingredUsado = receitaPreparada.ingredientes.find((ing) => ing.nome === ingred.nome)
-    //   if(ingredUsado){
-    //     ingred.qtd -= ingredUsado.qtd;
-    //   }
-    //   return ingred;
-    // });
-    // const ingredRestantes = encontraIngreds.filter((ingred) => ingred.qtd > 0)
-    // localStorage.setItem('armarioDeErvas', JSON.stringify(ingredRestantes));
-  //   };
-
-  // const preparaReceita = () => {
-  //   const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao));
-  //   if(receitaPreparada.ingredientes.ingrediente)
-  //   global.alert(!receitaPreparada ? "A receita falhou" : `Você preparou: ${receitaPreparada.nome}`);
-  //   if(receitaPreparada){
-  //     localStorage.setItem('pocoes', JSON.stringify([...getAllDoneRecipes, receitaPreparada]));
-  //     consomeErvas(receitaPreparada);
-  //   }
-  //   setCaldeirao([]);
-  //   if(!receitaConhecida.find((receita) => receita.nome === receitaPreparada.nome)){
-  //     const receitaNova = JSON.stringify(receitaPreparada);
-  //     localStorage.setItem('receitasConhecidas', JSON.stringify(...receitaConhecida, receitaNova));
-  //   }
-  // };
 
   const ordenaArmario = getIngredientes.sort(function (a, b) {
     if (a.nome > b.nome) {
