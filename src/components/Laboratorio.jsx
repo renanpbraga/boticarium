@@ -58,11 +58,13 @@ function Laboratorio() {
         const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao));
         if(!receitaPreparada){
           global.alert('A Poção falhou');
+          ingred.qtd -= verificaCaldeirao.qtd
+          localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas]))
+          setCaldeirao([]);
           return ingred
         }
         const encontraIngreds = getAllErvas.map((ingred) => {
           const ingredUsado = receitaPreparada.ingredientes.find((ing) => ing.nome === ingred.nome)
-          console.log(ingredUsado);
           if(ingredUsado){
             ingred.qtd -= ingredUsado.qtd;
           }
@@ -72,6 +74,7 @@ function Laboratorio() {
         localStorage.setItem('armarioDeErvas', JSON.stringify(ingredRestantes));
         getAllErvas.find((erva) => erva.nome === receitaPreparada.ingredientes.nome)
         localStorage.setItem('pocoes', JSON.stringify([...getAllDoneRecipes, receitaPreparada]));
+        setCaldeirao([]);
         }});
   }
 
