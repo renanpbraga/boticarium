@@ -6,3 +6,11 @@ li {
   font-weight: 400;
 }
 
+.active {
+  text-align: justify;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.inactive {
+  display: none;
+}
