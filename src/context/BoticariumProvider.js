@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import BoticariumContext from './BoticariumContext';
-import phormicum from '../img/phormicum.jpg';
+import amrita from '../img/amrita.jpg';
 import acallentum from '../img/acallentum.jpg';
 import kopheum from '../img/kopheum.jpg';
-import riccinum from '../img/riccinum.jpg';
+import malorna from '../img/malorna.jpg';
 import ignaria from '../img/ignaria.jpg';
 import umumbuia from '../img/umumbuia.jpg';
 import amenaria from '../img/amenaria.jpg';
@@ -114,11 +114,11 @@ function BoticariumProvider({children}) {
   const jardim = [
     { 
       id: 1,
-      nome: "Phormicum",
-      descricao: "Planta herbácea conhecida por estar sempre próxima a um formigueiro. As formigas constroem seus ninhos próximos à Phormicum, pois quando outros insetos se alimentam das folhas dessa erva, ficam anestesiados. Tornando-se um alvo fácil para as formigas. Parte utilizada: Folhas.",
+      nome: "Amrita",
+      descricao: "Planta herbácea conhecida por estar sempre próxima a um formigueiro. As formigas constroem seus ninhos próximos à amrita, pois quando outros insetos se alimentam das folhas dessa erva, ficam anestesiados. Tornando-se um alvo fácil para as formigas. Parte utilizada: Folhas.",
       efeitos: ["Anestésico"],
       valor: 0.1,
-      img: phormicum,
+      img: amrita,
     },
     { 
       id: 2,
@@ -138,11 +138,11 @@ function BoticariumProvider({children}) {
     },
     { 
       id: 4,
-      nome: "Riccinum",
-      descricao: "Planta de hábito semi-arbustivo, possui folhas largas e estreladas. Seus frutos apresentam formato redondo com projeções pontiaguras. As sementes de Riccinum maceradas e deixadas em infusão liberam toxinas. Parte utilizada: Sementes.",
+      nome: "Malorna",
+      descricao: "Planta de hábito semi-arbustivo, possui folhas largas e estreladas. Seus frutos apresentam formato redondo com projeções pontiaguras. As sementes de Malorna maceradas e deixadas em infusão liberam toxinas. Parte utilizada: Sementes.",
       efeitos: ["Tóxico"],
       valor: 1,
-      img: riccinum,
+      img: malorna,
     },
     {
       id: 5,

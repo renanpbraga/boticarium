@@ -1,30 +1,15 @@
 import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import BoticariumContext from '../context/BoticariumContext';
 import NavBar from './NavBar';
 
 function Grimorio() {
   
   const[isActive, setIsActive] = useState("false");
-  // const[receitas, setReceitas] = useState(false);
-  // console.log(ervas, 'ERVAS');
-  // console.log(receitas, 'RECEITAS');
   
   const handleToggle = () => {
     setIsActive(isActive === "" ? "active" : "");
   };
-  
-  // const toggleClass = (ervas, receitas) => {
-  //   if(ervas === false){
-  //     setErvas(true);
-  //   } else if(ervas === true) {
-  //     setErvas(false);
-  //   }
-  //   if(!receitas){
-  //     setReceitas(true);
-  //   } else {
-  //     setReceitas(false);
-  //   };
-  // };
 
   const {receitasIniciais, jardim} = useContext(BoticariumContext);
   const getGrimorio = JSON.parse(localStorage.getItem('receitasConhecidas')) || [];
@@ -54,18 +39,20 @@ function Grimorio() {
         </button>
       </section>
       <section name="jardim" className={isActive ? "active" : "inactive"}>
+      <div className="armario-ervas">
+      <ul>
+        Armário de Ervas:
       {
-        jardim.map((erva) => (
-          (
-            <ul key={erva.nome}>
-            <img src={erva.img} width="100" alt={erva.nome}/>
-            {erva.nome}
-            <li key={erva.id}>
-              {erva.descricao}
+        jardim.map((erva, index) => (
+            <li key={index}>
+              <Link to={`/grimorio/${erva.nome}`}>
+              {erva.nome}
+              </Link>
             </li>
-          </ul>
-        )))
-      }
+        ))
+      }      
+      </ul>
+    </div>
       </section>
       <section className={isActive ? "inactive" : "active"}>
       {
