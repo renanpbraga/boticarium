@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import BoticariumContext from '../context/BoticariumContext';
-import '../App.css';
+import NavBar from './NavBar';
 
 function Grimorio() {
   
@@ -35,6 +35,7 @@ function Grimorio() {
   
   return (
     <main>
+      <NavBar />
       <ul>Grimório</ul>
       <section>
         <button
@@ -55,8 +56,9 @@ function Grimorio() {
       <section name="jardim" className={isActive ? "active" : "inactive"}>
       {
         jardim.map((erva) => (
-        (
-          <ul key={erva.nome}>
+          (
+            <ul key={erva.nome}>
+            <img src={erva.img} width="100" alt={erva.nome}/>
             {erva.nome}
             <li key={erva.id}>
               {erva.descricao}
@@ -72,7 +74,7 @@ function Grimorio() {
           <ul key={receita.nome}>
             {receita.nome}
             <li key={receita.id}>
-              {receita.receita}
+              Potencial: {receita.valorMin} ~ {receita.valorMax}
             </li>
           </ul>
         )))

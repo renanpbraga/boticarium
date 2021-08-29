@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import BoticariumContext from '../context/BoticariumContext';
+import NavBar from './NavBar';
 
 function Jardim() {
   const {jardim, setIngredientes, getIngredientes} = useContext(BoticariumContext);  
@@ -31,6 +32,7 @@ function Jardim() {
 
   return (
     <div>
+      <NavBar />
       {
         arrayErvas.map((erva, index) => index < maxErvas &&(
           <button
