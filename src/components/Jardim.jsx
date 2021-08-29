@@ -1,27 +1,29 @@
 import React, { useContext } from 'react';
 import BoticariumContext from '../context/BoticariumContext';
+import NavBar from './NavBar';
 
 function Jardim() {
-  const {jardim, setErva} = useContext(BoticariumContext);  
-  
-  const coletarErva = (name) => {
+  const {jardim, setIngredientes, getIngredientes} = useContext(BoticariumContext);  
+
+  const coletarErva = (nome) => {
+    const findErva = jardim.find((erva) => erva.nome === nome);
     const novaErva = {
-      nome: name,
+      nome: findErva.nome,
       qtd: Math.ceil(Math.random() * 5),
-    }
-    setErva(novaErva);
-    const encontraErva = getAllErvas.find((erva) => erva.nome === novaErva.nome);
+      valor: findErva.valor,
+    };
+    const encontraErva = getIngredientes.find((erva) => erva.nome === novaErva.nome);
     if(!encontraErva){
-      localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas, novaErva]));
+      getIngredientes.push(novaErva);
+      setIngredientes(getIngredientes);
     }
     else {
-      const ervaRepetida = getAllErvas.find((erva) => erva.nome === novaErva.nome);
+      const ervaRepetida = getIngredientes.find((erva) => erva.nome === novaErva.nome);
       ervaRepetida.qtd += novaErva.qtd;
-      localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas]));
-    }
+      setIngredientes(getIngredientes);
+    };
   };
-  const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
-
+  
   const maxErvas = 4;
   const arrayErvas = [];
   for(let i = 0; i < jardim.length; i += 1){
@@ -30,6 +32,7 @@ function Jardim() {
 
   return (
     <div>
+      <NavBar />
       {
         arrayErvas.map((erva, index) => index < maxErvas &&(
           <button

@@ -1,11 +1,20 @@
 import React from 'react';
-import Laboratorio from './components/Laboratorio';
+import { Route, Switch } from 'react-router-dom';
+import Grimorio from './components/Grimorio';
+import Jardim from './components/Jardim';
+// import Laboratorio from './components/Laboratorio';
+import Laboratorio2 from './components/Laboratorio2';
 import BoticariumProvider from './context/BoticariumProvider';
 
 function App() {
+  document.title = "Boticarium";
   return (
     <BoticariumProvider>
-      <Laboratorio />
+      <Switch>
+        <Route path="/jardim" render={ (props) => <Jardim { ...props } /> } />
+        <Route path="/grimorio" render={ (props) => <Grimorio { ...props } /> } />
+        <Route exact path="/" render={ (props) => <Laboratorio2 { ...props } /> } />  
+      </Switch>
     </BoticariumProvider>
   );
 }

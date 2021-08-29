@@ -1,3 +1,22 @@
+:root{
+  --primary-color: #432818;
+  --primary-variant-color: #99582a;
+  --secondary-color: #27170e;
+  --light-backgound-color: #ffffff;
+  --light-surface-color: #ffe6a7;
+  --light-error-color: #6f1d1b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--light-backgound-color);
+  color: var(--secondary-color);
+}
+
 ul {
   font-weight: bold;
 }
@@ -6,3 +25,104 @@ li {
   font-weight: 400;
 }
 
+.active {
+  text-align: justify;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.inactive {
+  display: none;
+}
+
+.nav-bar {
+  background-color: var(--primary-color);
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-bar a {
+  color: var(--light-surface-color);
+  margin: 0 10px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredient-select {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.ingredient-select label, p{
+  font-weight: bold;
+  margin: 10px;
+}
+
+.ingredient-select select {
+  background-color: var(--light-surface-color);
+  color: var(--primary-color);
+  height: 35px;
+  width: 250px;
+  margin-left:10px;
+}
+
+.ingredient-select button {
+  background-color: #27170e;
+  border: 0;
+  color: var(--light-surface-color);
+  font-weight: bold;
+  height: 35px;
+  width: 170px;
+}
+
+.ingredient-select button:hover {
+  background-color: var(--light-error-color);
+}
+
+.caldeirao-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.caldeirao-container img {
+  margin-right: 20px;
+}
+
+.caldeirao-container ul {
+  margin-left: 20px;
+}
+
+.caldeirao-buttons {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid; */
+}
+
+.caldeirao-buttons button {
+  background-color: var(--secondary-color);
+  border: 0;
+  color: var(--light-surface-color);
+  font-weight: bold;
+  height: 35px;
+  margin: 0 0 5px 20px ;
+  width: 170px
+}
+
+.armarios-container {
+  justify-content: center;
+  display: flex;
+  margin-top: 30px;
+}
+
+.armarios-container ul {
+  align-items: center;
+  margin: 0 150px;
+}

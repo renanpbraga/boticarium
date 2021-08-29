@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import BoticariumContext from '../context/BoticariumContext';
 import ArmarioDeErvas from './ArmarioDeErvas';
 import ArmarioDePocoes from './ArmarioDePocoes';
@@ -18,6 +19,12 @@ function Laboratorio() {
     grimorio
   } = useContext(BoticariumContext);
 
+  const array = [+5, -3, +10];
+
+  const getSum = (result, number) => result + number;
+  const sumNumbers = array.reduce(getSum);
+  console.log(sumNumbers);
+
   const adicionarIngredientes = () => {
     if(!ingrediente){
       return
@@ -36,7 +43,7 @@ function Laboratorio() {
       } 
       else {
         const newCaldeirao = caldeirao.map(
-          ingred => ingred.nome === ingrediente ? {...ingred, qtd: quantidade} : ingred
+          ingred => ingred.nome === ingrediente ? {...ingred, valor: quantidade} : ingred
         );
         setCaldeirao(newCaldeirao);
       };
@@ -87,7 +94,10 @@ function Laboratorio() {
   });
 
   return (
-    <div>
+    <main>
+      <nav>
+      <Link to="/grimorio">Grimório</Link>
+      </nav>
       <label htmlFor="ingrediente">
         Ingrediente:
         <select id="ingrediente" onChange={(e) => setIngrediente(e.target.value)}>
@@ -116,7 +126,7 @@ function Laboratorio() {
       <Jardim />
       <ArmarioDeErvas />
       <Grimorio />
-    </div>
+    </main>
   )
 }
 
