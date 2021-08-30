@@ -11,6 +11,8 @@ function Jardim() {
       nome: findErva.nome,
       qtd: Math.ceil(Math.random() * 5),
       valor: findErva.valor,
+      descricao: findErva.descricao,
+      conhecida: findErva.conhecida,
     };
     const encontraErva = getIngredientes.find((erva) => erva.nome === novaErva.nome);
     if(!encontraErva){

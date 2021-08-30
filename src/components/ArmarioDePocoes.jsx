@@ -1,26 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import BoticariumContext from '../context/BoticariumContext';
 
 function ArmarioDePocoes() {
+  const {ordenar, getPocao} = useContext(BoticariumContext);
 
-  const getArmarioDePocoes = JSON.parse(localStorage.getItem('pocoes')) || [];
-
-  const ordenaArmario = getArmarioDePocoes.sort(function (a, b) {
-    if (a.nome > b.nome) {
-      return 1;
-    }
-    if (a.nome < b.nome) {
-      return -1;
-    }
-    return 0;
-  });
+  const ordenaArmarioDePocoes = ordenar(getPocao)
 
   return (
     <div>
       <ul className="texto-negrito">
         Armário de Poções:
         {
-          getArmarioDePocoes.length < 1 ? <li>Vazio...</li> :
-          ordenaArmario.map((pocao, index) => (
+          getPocao.length < 1 ? <li>Vazio...</li> :
+          ordenaArmarioDePocoes.map((pocao, index) => (
             <li key={index}>{pocao.nome}</li>
           ))
         }

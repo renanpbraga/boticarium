@@ -11,13 +11,14 @@ function Grimorio() {
     setIsActive(isActive === "" ? "active" : "");
   };
 
-  const {receitasIniciais, jardim} = useContext(BoticariumContext);
+  const {receitasIniciais, ordenar, getIngredientes} = useContext(BoticariumContext);
   const getGrimorio = JSON.parse(localStorage.getItem('receitasConhecidas')) || [];
   if(getGrimorio.length < 1){
     const grimorioInicial = JSON.stringify(receitasIniciais.receitas);
     localStorage.setItem('receitasConhecidas', grimorioInicial);
   }
   
+  const jardimOrdenado = ordenar(getIngredientes); 
   return (
     <main>
       <NavBar />
@@ -43,10 +44,10 @@ function Grimorio() {
       <ul>
         Armário de Ervas:
       {
-        jardim.map((erva, index) => (
+        jardimOrdenado.map((erva, index) => (
             <li key={index}>
               <Link to={`/grimorio/${erva.nome}`}>
-              {erva.nome}
+              {erva.conhecida ? erva.nome : 'Erva Desconhecida'}
               </Link>
             </li>
         ))

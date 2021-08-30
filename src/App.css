@@ -126,3 +126,19 @@ li {
   align-items: center;
   margin: 0 150px;
 }
+
+.ervas-container {
+  display: flex;
+  width: 95%;
+  text-align:justify;
+}
+
+.ervas-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ervas-info input{
+  height: 25px;
+  width: 200px;
+}

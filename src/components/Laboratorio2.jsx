@@ -37,14 +37,16 @@ function Laboratorio2() {
       }));
       const ervasIniciais =[
         {
-          nome: 'Riccinum',
+          nome: 'Malorna',
           qtd: 5,
           valor: 1,
+          conhecida: true,
         },
         {
           nome: 'Witterina',
           qtd: 5,
           valor: -1,
+          conhecida: true,
         },
       ];
       getIngredientes.push(...ervasIniciais);
@@ -160,7 +162,7 @@ function Laboratorio2() {
               <option />
             {
               ordenaArmario.map((ingrediente, index) => (
-                <option key={index}>{ingrediente.nome}</option>
+                <option key={index}>{ingrediente.conhecida ? ingrediente.nome : 'Erva desconhecida'}</option>
               )).sort()
             }
           </select>

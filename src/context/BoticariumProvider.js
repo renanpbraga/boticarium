@@ -37,6 +37,50 @@ function BoticariumProvider({children}) {
   const getIngredientes = JSON.parse(localStorage.getItem('ervas')) || [];
   const getPocao = JSON.parse(localStorage.getItem('pocoes')) || [];
 
+  const ordenar = (array) => {
+    const ordenaArmario = array.sort(function (a, b) {
+      if (a.nome > b.nome) {
+        return 1;
+      }
+      if (a.nome < b.nome) {
+        return -1;
+      }
+      return 0;
+    });
+    return ordenaArmario;
+  }
+
+//   function embaralhar (palavra){
+//     let palavraEmbaralhada = '';
+//     palavra = palavra.split('');
+//     while (palavra.length > 0) {
+//       palavraEmbaralhada +=  palavra.splice(palavra.length * Math.random() << 0, 1);
+//     }
+//     return palavraEmbaralhada;
+// }
+
+const stringToArray = (string) => {
+  return string.split(' ');
+}
+
+function embaralhar(array) {
+  var m = array.length, t, i;
+
+  // While there remain elements to shuffle…
+  while (m) {
+
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+
+  return array;
+}
+
   const receitasIniciais = {
     receitas: [
       {
@@ -119,6 +163,7 @@ function BoticariumProvider({children}) {
       efeitos: ["Anestésico"],
       valor: 0.1,
       img: amrita,
+      conhecida: false,
     },
     { 
       id: 2,
@@ -127,6 +172,7 @@ function BoticariumProvider({children}) {
       efeitos: ["Calmante"],
       valor: 0.3,
       img: acallentum,
+      conhecida: false,
     },
     { 
       id: 3,
@@ -135,6 +181,7 @@ function BoticariumProvider({children}) {
       efeitos: ["Estimulante"],
       valor: 0.5,
       img: kopheum,
+      conhecida: false,
     },
     { 
       id: 4,
@@ -143,6 +190,7 @@ function BoticariumProvider({children}) {
       efeitos: ["Tóxico"],
       valor: 1,
       img: malorna,
+      conhecida: true,
     },
     {
       id: 5,
@@ -151,14 +199,16 @@ function BoticariumProvider({children}) {
       efeitos: ["Afrodisíaco", "Estimulante", "Inflamável"],
       valor: 2,
       img: ignaria,
+      conhecida: false,
     },
     {
       id: 6,
       nome: "Umumbuia",
-      descricao: "Planta herbácea e robusta com folhas verde-escuro alternadas, comumente com manchas variegadas de cor branco-creme, em formato oblongo a elíptico. O extrato de Umumbuia macerada com auxílio de almofariz e pistilo e embebidas em álcool produzem um forte veneno. Parte utilizada: Folha.",
+      descricao: "TESTE DE DESCRICAO",
       efeitos: ["Tóxico"],
       valor: 5,
       img: umumbuia,
+      conhecida: false,
     },
     {
       id: 7,
@@ -167,6 +217,7 @@ function BoticariumProvider({children}) {
       efeitos: ["Cicatrizante, Anti-inflamatório"],
       valor: -0.1,
       img: amenaria,
+      conhecida: false,
     },
     {
       id: 8,
@@ -175,6 +226,7 @@ function BoticariumProvider({children}) {
       efeitos: ["Resistência"],
       valor: -0.3,
       img: empetrata,
+      conhecida: false,
     },
     {
       id: 9,
@@ -183,6 +235,7 @@ function BoticariumProvider({children}) {
       efeitos: ["efeito"],
       valor: -0.5,
       img: triticatum,
+      conhecida: false,
     },
     {
       id: 10,
@@ -191,6 +244,7 @@ function BoticariumProvider({children}) {
       efeitos: ["efeito"],
       valor: -1,
       img: witterina,
+      conhecida: true,
     },
     {
       id: 11,
@@ -199,6 +253,7 @@ function BoticariumProvider({children}) {
       efeitos: ["efeito"],
       valor: -2,
       img: glicinolia,
+      conhecida: false,
     },
     {
       id: 12,
@@ -207,6 +262,7 @@ function BoticariumProvider({children}) {
       efeitos: ["efeito"],
       valor: -5,
       img: magnollum,
+      conhecida: false,
     },
   ];
 
@@ -243,6 +299,9 @@ function BoticariumProvider({children}) {
     setPocao,
     getUserInfo,
     setUserInfo,
+    ordenar,
+    stringToArray,
+    embaralhar,
   };
 
   return (
