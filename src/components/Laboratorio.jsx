@@ -157,45 +157,57 @@ function Laboratorio() {
       <nav>
         <NavBar />
       </nav>
-      <section className="ingredient-select">
-        <label htmlFor="ingrediente">
-          Ingrediente:
-          <select id="ingrediente" onChange={(e) => setIngrediente(e.target.value)}>
-              <option />
-            {
-              ordenaArmario.map((ingrediente, index) => (
-                <option key={index}>{ingrediente.conhecida ? ingrediente.nome : 'Erva desconhecida'}</option>
-              )).sort()
-            }
-          </select>
-        </label>
-          <p>
-            Potencial:{findValor.valor}
-          </p>
-        <button type="button" onClick={adicionarIngredientes}>Adicionar ao caldeirão</button>
-      </section>
-      <section className="caldeirao-container">
-        <img src={caldeiraoImg} width="200" alt="caldeirao" className="caldeirao-img"/>
-        <ul>Caldeirão:
-          {caldeirao.length < 1 ? <li>Caldeirão Vazio</li> : caldeirao.map((ingred, index) => (
-          <li key={index}>
-            {ingred.nome} 
-          </li>
-          ))}
-        </ul>
-        <ul>Total: {sumNumbersFixed}</ul>
-        <div className="caldeirao-buttons">
-          <button type="button" onClick={addAgua}>Adicionar Água</button>
-          <button type="button" onClick={concentrar}>Concentrar</button>
-          <button type="button" onClick={preparaPocao}>Preparar receita</button>
-          <button type="button" onClick={descartaCaldeirao}>Descartar caldeirão</button>
-        </div>
-      </section>
-      <section>
-      </section>
-      <section className="armarios-container">
-        <ArmarioDeErvas />
-        <ArmarioDePocoes />
+      <section className="laboratorio-container">
+        <aside className="ingredientes-container">
+          <div>
+            <ArmarioDeErvas />
+          </div>
+        </aside>
+        <section className="core-container">
+          <section>
+            <div className="ingredient-select">
+              <label htmlFor="ingrediente">
+                Ingrediente:
+                <select id="ingrediente" onChange={(e) => setIngrediente(e.target.value)}>
+                    <option />
+                  {
+                    ordenaArmario.map((ingrediente, index) => (
+                      <option key={index}>{ingrediente.conhecida ? ingrediente.nome : 'Erva desconhecida'}</option>
+                    )).sort()
+                  }
+                </select>
+              </label>
+              <div id="potencial-alquimico-container">
+                <p>Potencial: {findValor.valor}</p>
+              </div>
+            </div>
+              <div id="add-ingred-button">
+                <button type="button" onClick={adicionarIngredientes}>Adicionar ao caldeirão</button>
+              </div>
+          </section>
+          <section className="caldeirao-container">
+            <img src={caldeiraoImg} width="200" alt="caldeirao" className="caldeirao-img"/>
+            <ul>Caldeirão:
+              {caldeirao.length < 1 ? <li>Caldeirão Vazio</li> : caldeirao.map((ingred, index) => (
+              <li key={index}>
+                {ingred.nome} 
+              </li>
+              ))}
+            </ul>
+            <ul>Total: {sumNumbersFixed}</ul>
+            <div className="caldeirao-buttons">
+              <button type="button" onClick={addAgua}>Adicionar Água</button>
+              <button type="button" onClick={concentrar}>Concentrar</button>
+              <button type="button" onClick={preparaPocao}>Preparar receita</button>
+              <button type="button" onClick={descartaCaldeirao}>Descartar caldeirão</button>
+            </div>
+          </section>
+        </section>
+        <aside className="pocoes-container">
+          <div>
+            <ArmarioDePocoes />
+          </div>
+        </aside>
       </section>
     </main>
   )

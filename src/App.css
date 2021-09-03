@@ -35,8 +35,8 @@ li {
 }
 
 .nav-bar {
-  background-color: var(--primary-color);
-  height: 45px;
+  background-color: #352208;
+  height: 10vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,11 +52,49 @@ li {
   flex-direction: column;
 }
 
+.laboratorio-container {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ingredientes-container {
+  display: flex;
+  background-color: #9D876A;
+  border-right: 2px dashed #806443;
+  height: 90vh;
+  justify-content: center;
+  width: 20vw;
+}
+
+.pocoes-container {
+  display: flex;
+  background-color: #9D876A;
+  border-left: 2px dashed #806443;
+  height: 90vh;
+  justify-content: center;
+  width: 20vw;
+}
+
+.ingredientes-container ul, .pocoes-container ul {
+  margin-top: 20px;
+}
+
+.core-container {
+  background-color: #9D876A;
+  height: 90vh;
+  width: 60vw;
+}
+
 .ingredient-select {
   align-items: center;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   margin-top: 20px;
+  width: 100%;
+  /* border: solid 1px; */
 }
 
 .ingredient-select label, p{
@@ -68,17 +106,23 @@ li {
   background-color: var(--light-surface-color);
   color: var(--primary-color);
   height: 35px;
+  margin-left: 5px;
   width: 250px;
-  margin-left:10px;
 }
 
-.ingredient-select button {
-  background-color: #27170e;
+#add-ingred-button {
+  display: flex;
+  justify-content: center;
+}
+
+#add-ingred-button button{
+  background-color: var(--secondary-color);
   border: 0;
   color: var(--light-surface-color);
   font-weight: bold;
   height: 35px;
-  width: 170px;
+  margin: 0 0 5px 20px ;
+  width: 300px
 }
 
 .ingredient-select button:hover {
@@ -114,17 +158,6 @@ li {
   height: 35px;
   margin: 0 0 5px 20px ;
   width: 170px
-}
-
-.armarios-container {
-  justify-content: center;
-  display: flex;
-  margin-top: 30px;
-}
-
-.armarios-container ul {
-  align-items: center;
-  margin: 0 150px;
 }
 
 .ervas-container {
