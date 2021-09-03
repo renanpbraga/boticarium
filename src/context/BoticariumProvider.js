@@ -266,18 +266,18 @@ function embaralhar(array) {
     },
   ];
 
-  const progressão = [
-    { nivel: 1, xpMin: 0, xpMax: 100 },
-    { nivel: 2, xpMin: 101, xpMax: 300 },
-    { nivel: 3, xpMin: 301, xpMax: 600 },
-    { nivel: 4, xpMin: 601, xpMax: 1000 },
-    { nivel: 5, xpMin: 1001, xpMax: 1500 },
-    { nivel: 6, xpMin: 1501, xpMax: 2100 },
-    { nivel: 7, xpMin: 2101, xpMax: 2600 },
-    { nivel: 8, xpMin: 2601, xpMax: 3300 },
-    { nivel: 9, xpMin: 3301, xpMax: 4100 },
-    { nivel: 10, xpMin: 4101, xpMax: 5000 },
-  ];
+  // const progressão = [
+  //   { nivel: 1, xpMin: 0, xpMax: 100 },
+  //   { nivel: 2, xpMin: 101, xpMax: 300 },
+  //   { nivel: 3, xpMin: 301, xpMax: 600 },
+  //   { nivel: 4, xpMin: 601, xpMax: 1000 },
+  //   { nivel: 5, xpMin: 1001, xpMax: 1500 },
+  //   { nivel: 6, xpMin: 1501, xpMax: 2100 },
+  //   { nivel: 7, xpMin: 2101, xpMax: 2600 },
+  //   { nivel: 8, xpMin: 2601, xpMax: 3300 },
+  //   { nivel: 9, xpMin: 3301, xpMax: 4100 },
+  //   { nivel: 10, xpMin: 4101, xpMax: 5000 },
+  // ];
 
   const context =  {
     user,
