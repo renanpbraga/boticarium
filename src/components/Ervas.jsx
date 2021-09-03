@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import BoticariumContext from '../context/BoticariumContext';
 import NavBar from './NavBar';
 
@@ -18,7 +19,7 @@ function Ervas({ match: { params } }) {
       ervaDesconhecida.conhecida = true;
       setIngredientes(getIngredientes);
       window.location.reload(false); // rever como fazer usando useEffect
-    };
+    }
     return enigma;
   };
 
@@ -54,5 +55,13 @@ function Ervas({ match: { params } }) {
     </main>
   )
 }
+
+Ervas.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }),
+}.isRequired;
 
 export default Ervas;

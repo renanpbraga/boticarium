@@ -23,7 +23,7 @@ function Jardim() {
       const ervaRepetida = getIngredientes.find((erva) => erva.nome === novaErva.nome);
       ervaRepetida.qtd += novaErva.qtd;
       setIngredientes(getIngredientes);
-    };
+    }
   };
   
   const maxErvas = 4;

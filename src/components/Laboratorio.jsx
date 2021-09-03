@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import BoticariumContext from '../context/BoticariumContext';
 import ArmarioDeErvas from './ArmarioDeErvas';
 import ArmarioDePocoes from './ArmarioDePocoes';
-import Grimorio from './Grimorio';
-import Jardim from './Jardim';
+import NavBar from './NavBar';
+import caldeiraoImg from '../img/caldeiraoimg.png';
 import "../App.css"
 
 function Laboratorio() {
@@ -12,120 +11,192 @@ function Laboratorio() {
   const {
     ingrediente,
     setIngrediente,
-    quantidade,
-    setQuantidade,
     caldeirao,
     setCaldeirao,
-    grimorio
+    getIngredientes,
+    grimorio,
+    getPocao,
+    setPocao,
+    jardim,
+    setIngredientes,
+    getUserInfo,
+    setUserInfo,
+    receitasIniciais,
+    ordenar,
   } = useContext(BoticariumContext);
 
-  const array = [+5, -3, +10];
-
-  const getSum = (result, number) => result + number;
-  const sumNumbers = array.reduce(getSum);
-  console.log(sumNumbers);
-
-  const adicionarIngredientes = () => {
-    if(!ingrediente){
-      return
+  //ADICIONA O USUÁRIO AO LOCALSTORAGE
+  const getUser = () => {
+    const getUserFromStorage = localStorage.getItem('user');
+    if(!getUserFromStorage){
+      localStorage.setItem('user', JSON.stringify({
+        nivel: 1,
+        xp: 0,
+        ouro: 0,
+        prestigio: 0,
+        receitasConhecidas:[...receitasIniciais.receitas],
+      }));
+      const ervasIniciais =[
+        {
+          nome: 'Malorna',
+          qtd: 5,
+          valor: 1,
+          conhecida: true,
+        },
+        {
+          nome: 'Witterina',
+          qtd: 5,
+          valor: -1,
+          conhecida: true,
+        },
+      ];
+      getIngredientes.push(...ervasIniciais);
+      setIngredientes(getIngredientes);
     }
+  };
+  getUser();
+
+  //ADICIONA INGREDIENTES AO CALDEIRÃO
+  const adicionarIngredientes = () => {
     //special thanks to Eduardo Santos(https://github.com/EduardoSantosF)
+    const addIngrediente = getIngredientes.find((ingred) => ingred.nome === ingrediente); 
+    if(!addIngrediente){
+      setIngrediente('');
+      return global.alert('Você deve adicionar algum ingrediente.');
+    }
     const novoIngrediente = {
-      nome: ingrediente,
-      qtd: quantidade,
+      nome: addIngrediente.nome ,
+      valor: addIngrediente.valor,
     };
-    if(getAllErvas.find((erva) => erva.nome === ingrediente && erva.qtd < quantidade)){
+    if(getIngredientes.find((erva) => erva.nome === ingrediente && erva.qtd === 0)){
       global.alert(`Você não possui ${ingrediente} suficiente`)
-    } else{
-      const foundIngred = caldeirao.find((ingred) => ingred.nome === ingrediente) 
-      if(!foundIngred  && quantidade > 0){
+    } else {
         setCaldeirao([...caldeirao, novoIngrediente]);
-      } 
-      else {
-        const newCaldeirao = caldeirao.map(
-          ingred => ingred.nome === ingrediente ? {...ingred, valor: quantidade} : ingred
-        );
-        setCaldeirao(newCaldeirao);
-      };
+        const encontraIngrediente = getIngredientes.find((ingred) => ingred.nome === ingrediente);
+        encontraIngrediente.qtd -= 1
+        const ingredRestante = getIngredientes.filter((ingred) => ingred.qtd > 0);
+        setIngredientes(ingredRestante);
+    }
+  };
+
+  // FAZ A ORDENAÇÃO DOS INGREDIENTES
+  const ordenaArmario = ordenar(getIngredientes);
+
+  //CALCULA O POTENCIAL ALQUÍMICO (TOTAL)
+  const arrayValores = caldeirao.map((ingred) => ingred.valor);
+  const getSum = (result, number) => {
+    return result + number;
+    };
+  const sumNumbers = arrayValores.reduce(getSum, 0);
+  const sumNumbersFixed = sumNumbers.toFixed(2)
+
+  //PREPARA A POÇÃO DE ACORDO COM O POTENCIAL ALQUÍMICO
+  const preparaPocao = () => {
+    if(sumNumbersFixed === 0){
+      return;
+    } else{
+      const encontraPocao = grimorio.receitas.find((pocao) =>
+      sumNumbersFixed >= pocao.valorMin && sumNumbersFixed <= pocao.valorMax)
+      if(encontraPocao){
+        getPocao.push(encontraPocao);
+        setPocao(getPocao) //localstorage pocoes
+        setCaldeirao([]);
+        global.alert(`Você preparou ${encontraPocao.nome}`)
+        const verificaReceitaConhecida = getUserInfo.receitasConhecidas.find((pocao) =>
+          JSON.stringify(pocao) === JSON.stringify(encontraPocao));
+        if(verificaReceitaConhecida){
+          getUserInfo.xp += verificaReceitaConhecida.xp;
+          setUserInfo(getUserInfo);
+        } else {
+          getUserInfo.xp += (getPocao[0].xp + 100);
+          setUserInfo(getUserInfo);
+        }
+      } else {
+        setCaldeirao([]);
+        return global.alert('A receita falhou.');
+      }
     }
   };
   
-  const getAllDoneRecipes = JSON.parse(localStorage.getItem('pocoes')) || [];
-  // const receitaConhecida = JSON.parse(localStorage.getItem('receitasConhecidas')) || [];
-  const getIngredientes = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
-  const getAllErvas = JSON.parse(localStorage.getItem('armarioDeErvas')) || [];
+  // ADICIONAR INGREDIENTE ÁGUA AO CALDEIRAO
+  const addAgua = () => {
+    const valor = -0.01;
+    const valorFixed = Number(valor.toFixed(2));
 
-  const preparaPocao = () => {
-    getAllErvas.find((ingred) => {
-      const verificaCaldeirao = caldeirao.find((ing) => ing.nome === ingred.nome)
-      if(verificaCaldeirao){
-        //MUDAR ISSO AQUI - COMPARAR SEM USAR STRINGIFY
-        const receitaPreparada = grimorio.receitas.find((receita) => JSON.stringify(receita.ingredientes) === JSON.stringify(caldeirao));
-        if(!receitaPreparada){
-          global.alert('A Poção falhou');
-          ingred.qtd -= verificaCaldeirao.qtd
-          localStorage.setItem('armarioDeErvas', JSON.stringify([...getAllErvas]))
-          setCaldeirao([]);
-          return ingred
-        }
-        const encontraIngreds = getAllErvas.map((ingred) => {
-          const ingredUsado = receitaPreparada.ingredientes.find((ing) => ing.nome === ingred.nome)
-          if(ingredUsado){
-            ingred.qtd -= ingredUsado.qtd;
-          }
-          return ingred;
-        });
-        const ingredRestantes = encontraIngreds.filter((ingred) => ingred.qtd > 0)
-        localStorage.setItem('armarioDeErvas', JSON.stringify(ingredRestantes));
-        getAllErvas.find((erva) => erva.nome === receitaPreparada.ingredientes.nome)
-        localStorage.setItem('pocoes', JSON.stringify([...getAllDoneRecipes, receitaPreparada]));
-        setCaldeirao([]);
-        }});
+    const agua = {
+      nome: "Água",
+      valor: valorFixed,
+    }
+    if(caldeirao.length > 0){
+      setCaldeirao([...caldeirao, agua]);
+    } else {
+      global.alert('Não há o que diluir...')
+    }
+  };
+
+  // ADICIONA INGREDIENTE CONCENTRADOR
+  const concentrar = () => {
+    const concentrador = {
+      nome: "Concentrador",
+      qtd: 5,
+      valor: 0.05,
+    }
+    getIngredientes.push(concentrador);
+    setIngredientes(getIngredientes)
   }
 
-  const ordenaArmario = getIngredientes.sort(function (a, b) {
-    if (a.nome > b.nome) {
-      return 1;
-    }
-    if (a.nome < b.nome) {
-      return -1;
-    }
-    return 0;
-  });
+  // DESCARTAR RECEITA
+  const descartaCaldeirao = () => {
+    setCaldeirao([]);
+  }
 
+  // MOSTRA O POTENCIAL ALQUÍMICO DO INGREDIENTE SELECIONADO
+  const findValor = jardim.find((ingred) => ingred.nome === ingrediente)||'';
   return (
-    <main>
+    <main className="main-container">
       <nav>
-      <Link to="/grimorio">Grimório</Link>
+        <NavBar />
       </nav>
-      <label htmlFor="ingrediente">
-        Ingrediente:
-        <select id="ingrediente" onChange={(e) => setIngrediente(e.target.value)}>
-            <option />
-          {
-            ordenaArmario.map((ingrediente) => (
-              <option key={ingrediente.nome}>{ingrediente.nome}</option>
-            )).sort()
-          }
-        </select>
-      </label>
-      <label htmlFor="quantidade">
-        Quantidade:
-        <input type="number" id="quantidade" onChange={(e) => setQuantidade(Number(e.target.value))}/>
-      </label>
-      <button type="button" onClick={adicionarIngredientes}>Adicionar ao caldeirão</button>
-      <ul>Caldeirão:
-        {caldeirao.length < 1 ? <li>Caldeirão Vazio</li> : caldeirao.map((caldeirao) => (
-          <li key={caldeirao.nome}>
-            {caldeirao.qtd}x: {caldeirao.nome}
+      <section className="ingredient-select">
+        <label htmlFor="ingrediente">
+          Ingrediente:
+          <select id="ingrediente" onChange={(e) => setIngrediente(e.target.value)}>
+              <option />
+            {
+              ordenaArmario.map((ingrediente, index) => (
+                <option key={index}>{ingrediente.conhecida ? ingrediente.nome : 'Erva desconhecida'}</option>
+              )).sort()
+            }
+          </select>
+        </label>
+          <p>
+            Potencial:{findValor.valor}
+          </p>
+        <button type="button" onClick={adicionarIngredientes}>Adicionar ao caldeirão</button>
+      </section>
+      <section className="caldeirao-container">
+        <img src={caldeiraoImg} width="200" alt="caldeirao" className="caldeirao-img"/>
+        <ul>Caldeirão:
+          {caldeirao.length < 1 ? <li>Caldeirão Vazio</li> : caldeirao.map((ingred, index) => (
+          <li key={index}>
+            {ingred.nome} 
           </li>
-        ))}
-      </ul>
-      <button type="button" onClick={preparaPocao}>Preparar receita</button>
-      <ArmarioDePocoes />
-      <Jardim />
-      <ArmarioDeErvas />
-      <Grimorio />
+          ))}
+        </ul>
+        <ul>Total: {sumNumbersFixed}</ul>
+        <div className="caldeirao-buttons">
+          <button type="button" onClick={addAgua}>Adicionar Água</button>
+          <button type="button" onClick={concentrar}>Concentrar</button>
+          <button type="button" onClick={preparaPocao}>Preparar receita</button>
+          <button type="button" onClick={descartaCaldeirao}>Descartar caldeirão</button>
+        </div>
+      </section>
+      <section>
+      </section>
+      <section className="armarios-container">
+        <ArmarioDeErvas />
+        <ArmarioDePocoes />
+      </section>
     </main>
   )
 }
