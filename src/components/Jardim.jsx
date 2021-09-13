@@ -3,7 +3,7 @@ import BoticariumContext from '../context/BoticariumContext';
 import NavBar from './NavBar';
 
 function Jardim() {
-  const {jardim, setIngredientes, getIngredientes} = useContext(BoticariumContext);  
+  const {jardim, addIngredNoStorage, getIngredientes} = useContext(BoticariumContext);  
 
   const coletarErva = (nome) => {
     const findErva = jardim.find((erva) => erva.nome === nome);
@@ -17,12 +17,12 @@ function Jardim() {
     const encontraErva = getIngredientes.find((erva) => erva.nome === novaErva.nome);
     if(!encontraErva){
       getIngredientes.push(novaErva);
-      setIngredientes(getIngredientes);
+      addIngredNoStorage(getIngredientes);
     }
     else {
       const ervaRepetida = getIngredientes.find((erva) => erva.nome === novaErva.nome);
       ervaRepetida.qtd += novaErva.qtd;
-      setIngredientes(getIngredientes);
+      addIngredNoStorage(getIngredientes);
     }
   };
   

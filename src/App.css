@@ -1,3 +1,8 @@
+@font-face {
+  font-family: medieval;
+  src: url(./font/BerryRotunda.ttf);
+}
+
 :root{
   --primary-color: #432818;
   --primary-variant-color: #99582a;
@@ -23,6 +28,11 @@ ul {
 
 li {
   font-weight: 400;
+}
+
+.fonte-medieval {
+  font-family: medieval;
+  font-size: 5em;
 }
 
 .active {
@@ -61,7 +71,7 @@ li {
 
 .ingredientes-container {
   display: flex;
-  background-color: #9D876A;
+  background-color: #917c61;
   border-right: 2px dashed #806443;
   height: 90vh;
   justify-content: center;
@@ -70,7 +80,7 @@ li {
 
 .pocoes-container {
   display: flex;
-  background-color: #9D876A;
+  background-color: #917c61;
   border-left: 2px dashed #806443;
   height: 90vh;
   justify-content: center;
@@ -97,8 +107,7 @@ li {
   /* border: solid 1px; */
 }
 
-.ingredient-select label, p{
-  font-weight: bold;
+.ingredient-select label{
   margin: 10px;
 }
 

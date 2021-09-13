@@ -3,7 +3,7 @@ import BoticariumContext from '../context/BoticariumContext';
 import ArmarioDeErvas from './ArmarioDeErvas';
 import ArmarioDePocoes from './ArmarioDePocoes';
 import NavBar from './NavBar';
-import caldeiraoImg from '../img/caldeiraoimg.png';
+import caldeiraoImg from '../img/caldeiraoimg2.png';
 import "../App.css"
 
 function Laboratorio() {
@@ -18,7 +18,7 @@ function Laboratorio() {
     getPocao,
     setPocao,
     jardim,
-    setIngredientes,
+    addIngredNoStorage,
     getUserInfo,
     setUserInfo,
     receitasIniciais,
@@ -51,7 +51,7 @@ function Laboratorio() {
         },
       ];
       getIngredientes.push(...ervasIniciais);
-      setIngredientes(getIngredientes);
+      addIngredNoStorage(getIngredientes);
     }
   };
   getUser();
@@ -75,7 +75,7 @@ function Laboratorio() {
         const encontraIngrediente = getIngredientes.find((ingred) => ingred.nome === ingrediente);
         encontraIngrediente.qtd -= 1
         const ingredRestante = getIngredientes.filter((ingred) => ingred.qtd > 0);
-        setIngredientes(ingredRestante);
+        addIngredNoStorage(ingredRestante);
     }
   };
 
@@ -142,7 +142,7 @@ function Laboratorio() {
       valor: 0.05,
     }
     getIngredientes.push(concentrador);
-    setIngredientes(getIngredientes)
+    addIngredNoStorage(getIngredientes)
   }
 
   // DESCARTAR RECEITA

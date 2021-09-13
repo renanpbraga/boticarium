@@ -1,38 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BoticariumContext from '../context/BoticariumContext';
 import NavBar from './NavBar';
 
 function Ervas({ match: { params } }) {
 
-  const { jardim, setIngredientes, getIngredientes } = useContext(BoticariumContext)
-
+  const { jardim, getIngredientes, addIngredNoStorage,removerEspeciais } = useContext(BoticariumContext)
+  
   const ervaNome = params.erva;
   const erva = getIngredientes.find((ingred) => ingred.nome === ervaNome);
   const ervaNoBd = jardim.find((ingred) => ingred.nome === ervaNome);
+  
+  const [palavra, setPalavra] = useState([]);
+  const [erros, setErros] = useState(0);
+  const alfabeto = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W' , 'X', 'Y', 'Z'];
+  const enigma = removerEspeciais(erva.nome.toUpperCase());
+  const splitErva = enigma.split('') 
 
-  const setEnigma = (enigma) => {
-    console.log(enigma)
-    if(enigma === erva.nome){
-      global.alert('Você identificou a Erva')
-      const ervaDesconhecida = getIngredientes.find((erva) => erva.nome === ervaNome);
-      ervaDesconhecida.conhecida = true;
-      setIngredientes(getIngredientes);
-      window.location.reload(false); // rever como fazer usando useEffect
-    }
-    return enigma;
-  };
-
-    function shuffleWord (Word){
-      let shuffledWord = '';
-      Word = ervaNome.split('');
-      while (Word.length > 0) {
-        shuffledWord +=  Word.splice(Word.length * Math.random() << 0, 1);
-      }
-      return shuffledWord;
+  const verificaEnigma = splitErva.every((letra) => palavra.includes(letra));
+  if(verificaEnigma && erva.conhecida === false){
+    erva.conhecida = true;
+    addIngredNoStorage(getIngredientes);
+    global.alert('Você identificou a erva!');
   }
 
-  const ervaEmbaralhada = shuffleWord();
+  const verificaPalavra = splitErva.find((letra) => palavra.includes(letra))
+  useEffect(() => {
+    if(!verificaPalavra){
+      setErros(erros + 1);
+    }
+  },[])
+  console.log(erros);
 
   return (
     <main>
@@ -45,10 +43,29 @@ function Ervas({ match: { params } }) {
         </section>
         <section>
           <div className="ervas-info">
-            <h1>{erva.conhecida ? erva.nome : ervaEmbaralhada}</h1>
-            <p>{erva.conhecida ? ervaNoBd.descricao : 'Descrição: ???'}</p>
-            <p>Potencial alquímico: {erva.conhecida ? ervaNoBd.valor : '???'}</p>
-            <input onChange={(e) => setEnigma(e.target.value)} className={erva.conhecida ? "qualquer" : null}/>
+            <h1>Nome: {erva.conhecida ? erva.nome : 'Erva desconhecida'}</h1>
+            <p>Descrição: {erva.conhecida ? erva.descricao : '???'}</p>
+            <p>Potencial alquímico: {erva.conhecida ? erva.valor : '???'}</p>
+            <div className={erva.conhecida ? "inactive" : null}>
+            <strong>Para identificar a erva, descubra seu nome:</strong>
+              <span>
+                {
+                splitErva.map((letra) => (palavra.includes(letra) ? letra : ' _ '))
+                }
+              </span>
+              {
+                alfabeto.map((letra, index) => (
+                  <button
+                    type="button"
+                    key={index}
+                    name={letra}
+                    onClick={e => setPalavra([...palavra, e.target.name])}
+                  >
+                    {letra}
+                  </button>
+                ))
+              }
+            </div>
           </div>
         </section>
       </section>

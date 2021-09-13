@@ -21,7 +21,7 @@ function BoticariumProvider({children}) {
   const [caldeirao, setCaldeirao] = useState([]);
   const [erva, setErva] = useState([]);
 
-  const setIngredientes = (novoIngrediente) => {
+  const addIngredNoStorage = (novoIngrediente) => {
     localStorage.setItem('ervas', JSON.stringify(novoIngrediente));
   };
 
@@ -49,6 +49,17 @@ function BoticariumProvider({children}) {
     });
     return ordenaArmario;
   }
+
+  function removerEspeciais(texto) {
+    // eliminando acentuação
+    texto = texto.replace(/[ÀÁÂÃÄÅ]/,"A");
+    texto = texto.replace(/[ÈÉÊË]/,"E");
+    texto = texto.replace(/[IÍ]/,"I");
+    texto = texto.replace(/[OÓÕÔ]/,"O");
+    texto = texto.replace(/[UÚ]/,"U");
+    texto = texto.replace(/[Ç]/,"C");
+    return texto.replace(/[^a-z0-9]/gi,''); 
+} // fonte: https://www.horadecodar.com.br/2020/07/27/como-fazer-uma-busca-ignorando-acentuacao-em-javascript/
 
 //   function embaralhar (palavra){
 //     let palavraEmbaralhada = '';
@@ -294,7 +305,7 @@ function embaralhar(array) {
     jardim,
     receitasIniciais,
     getIngredientes,
-    setIngredientes,
+    addIngredNoStorage,
     getPocao,
     setPocao,
     getUserInfo,
@@ -302,6 +313,7 @@ function embaralhar(array) {
     ordenar,
     stringToArray,
     embaralhar,
+    removerEspeciais,
   };
 
   return (

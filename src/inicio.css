@@ -1,0 +1,37 @@
+/* body {
+  background-image: url(./img/bg.jpg);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+.inicio-main-container {
+  align-items:center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inicio-titulo {
+  font-family: medieval;
+  font-size: 5em;
+  justify-content: center;
+  margin-top: 200px;
+}
+
+.inicio-jogar-button {
+  background-color: #27170E;
+  border: 0;
+  border-bottom: 4px solid #5e3722;
+  color: #ffe6a7;
+  font-size: 1em;
+  font-weight: bold;
+  height: 45px;
+  width: 20%
+}
+
+.inicio-jogar-button:hover {
+  background-color: #744428;
+  border-bottom: 4px solid #5e3722;
+}
+
